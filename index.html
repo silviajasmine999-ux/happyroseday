@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Rose Day 🌹</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #b11226, #ff6f91);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: #fff;
+}
+
+/* Background falling roses */
+.roses span {
+    position: absolute;
+    top: -20px;
+    font-size: 22px;
+    animation: fall linear infinite;
+    opacity: 0.9;
+}
+
+.roses span:nth-child(1) { left: 10%; animation-duration: 6s; }
+.roses span:nth-child(2) { left: 30%; animation-duration: 7s; }
+.roses span:nth-child(3) { left: 50%; animation-duration: 5.5s; }
+.roses span:nth-child(4) { left: 70%; animation-duration: 8s; }
+.roses span:nth-child(5) { left: 90%; animation-duration: 6.5s; }
+
+@keyframes fall {
+    to {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.card {
+    width: 92%;
+    max-width: 360px;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(14px);
+    border-radius: 26px;
+    padding: 30px 22px;
+    text-align: center;
+    box-shadow: 0 18px 35px rgba(0,0,0,0.3);
+    z-index: 2;
+}
+
+h1 {
+    font-size: 1.9rem;
+    margin-bottom: 6px;
+}
+
+h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 14px;
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* ROSE */
+.rose {
+    font-size: 90px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: transform 0.8s ease;
+}
+
+/* Disco spin */
+.rose.spin {
+    font-size: 140px;
+    animation: spin 2.2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Falling petals */
+.petal {
+    position: absolute;
+    font-size: 20px;
+    animation: petalFall 1.6s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes petalFall {
+    from {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(140px) rotate(180deg);
+    }
+}
+
+#message {
+    display: none;
+    margin-top: 22px;
+    font-size: 1.15rem;
+    animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background roses -->
+<div class="roses">
+    <span>🌹</span>
+    <span>🌹</span>
+    <span>🌹</span>
+    <span>🌹</span>
+    <span>🌹</span>
+</div>
+
+<div class="card">
+    <h1>Happy Rose Day 🌹</h1>
+    <h2>~ JOE ~</h2>
+
+    <p>
+        This rose isn’t just a flower…  
+        it’s a piece of my heart, wrapped in petals 💖
+    </p>
+
+    <!-- Clickable Rose -->
+    <div class="rose" onclick="acceptRose()">🌹</div>
+
+    <div id="message">
+        Here You go a rose for you ~.~ 🌹<br><br>
+        May every day bloom with love, smiles,  
+        and moments just for us - AMEN ❤️
+    </div>
+</div>
+
+<script>
+function acceptRose() {
+    const rose = document.querySelector(".rose");
+
+    // Prevent multiple clicks
+    if (rose.classList.contains("spin")) return;
+
+    // Start disco spin + grow
+    rose.classList.add("spin");
+
+    // Drop petals
+    for (let i = 0; i < 12; i++) {
+        const petal = document.createElement("span");
+        petal.className = "petal";
+        petal.innerText = "🌸";
+        petal.style.left = Math.random() * 80 - 40 + "px";
+        petal.style.top = Math.random() * 20 + "px";
+        rose.appendChild(petal);
+
+        setTimeout(() => petal.remove(), 1600);
+    }
+
+    // Show message
+    setTimeout(() => {
+        document.getElementById("message").style.display = "block";
+    }, 600);
+
+    // Mobile vibration
+    if (navigator.vibrate) navigator.vibrate([60, 40, 60]);
+}
+</script>
+
+</body>
+</html>
